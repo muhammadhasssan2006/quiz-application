@@ -4,70 +4,70 @@ var questions  = [
     option1: "Curly braces {}",
     option2: "Square brackets []",
     option3: "Parentheses ()",
-    correctAnswer: "Curly braces {}"
+    corrAnswer: "Curly braces {}"
   },
   {
     question: "Which method adds one or more elements to the end of an array?",
     option1: "push()",
     option2: "pop()",
     option3: "shift()",
-    correctAnswer: "push()"
+    corrAnswer: "push()"
   },
   {
     question: "What does DOM stand for?",
     option1: "Document Object Model",
     option2: "Data Object Management",
     option3: "Digital Ordinance Model",
-    correctAnswer: "Document Object Model"
+    corrAnswer: "Document Object Model"
   },
   {
     question: "Which operator is used to compare both value and type?",
     option1: "==",
     option2: "===",
     option3: "=",
-    correctAnswer: "==="
+    corrAnswer: "==="
   },
   {
     question: "Which method is used to remove the last element of an array?",
     option1: "pop()",
     option2: "slice()",
     option3: "splice()",
-    correctAnswer: "pop()"
+    corrAnswer: "pop()"
   },
   {
     question: "Which of the following is a looping structure in JavaScript?",
     option1: "if-else",
     option2: "for",
     option3: "switch",
-    correctAnswer: "for"
+    corrAnswer: "for"
   },
   {
     question: "Which function is used to parse an integer from a string?",
     option1: "parseInt()",
     option2: "parseFloat()",
     option3: "Number()",
-    correctAnswer: "parseInt()"
+    corrAnswer: "parseInt()"
   },
   {
     question: "Which event occurs when a user clicks on an HTML element?",
     option1: "onchange",
     option2: "onclick",
     option3: "onmousehover",
-    correctAnswer: "onclick"
+    corrAnswer: "onclick"
   },
   {
     question: "Which built-in method returns the length of a string?",
     option1: "len",
     option2: "length",
     option3: "size",
-    correctAnswer: "length"
+    corrAnswer: "length"
   },
   {
     question: "Which symbol is used to make comments in JavaScript?",
     option1: "//",
     option2: "/* */",
     option3: "<!-- -->",
-    correctAnswer: "//"
+    corrAnswer: "//"
   }
 ];
 
@@ -84,22 +84,10 @@ var score = 0;
 var min = 1;
 var sec = 59;
 
-// style start
 
-Object.assign(quesElement.style,{
-    margin:"20px",
-})
-
-Object.assign(option1.style,{
-    border : "2px solid black",
-    padding:"5px",
-    lineHeight:"9px",
-})
-
-
-// style end 
 function timer() {
   var pElement = document.getElementById("time");
+
   pElement.innerHTML = min + ":" + sec;
   sec--;
   if (sec < 0) {
@@ -112,6 +100,7 @@ function timer() {
     }
   }
 }
+
 
 setInterval(timer, 100);
 
@@ -129,8 +118,9 @@ function nextQuestion() {
 
       if (correctAnswer === selectedOption) {
         score++;
+        // alert("correct answer")
       }
-      console.log(selectedOption);
+      // console.log(selectedOption);
     }
     nextBtn.disabled = true;
      min = 1;
@@ -145,7 +135,7 @@ function nextQuestion() {
       icon: "success",
     });
   } else {
-    quesElement.innerText = "Q"+ [index] +questions[index].question;
+    quesElement.innerText = "Q"+ [index +1] + ": "+questions[index].question;
     option1.innerText = questions[index].option1;
     option2.innerText = questions[index].option2;
     option3.innerText = questions[index].option3;
