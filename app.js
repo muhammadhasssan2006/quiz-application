@@ -1,3 +1,21 @@
+  const firebaseConfig = {
+    apiKey: "AIzaSyDgb2QA6y6hnbFLc8itPVWIEnvVu9GUocY",
+    authDomain: "quiz-app-7ad12.firebaseapp.com",
+    projectId: "quiz-app-7ad12",
+    storageBucket: "quiz-app-7ad12.firebasestorage.app",
+    messagingSenderId: "521340571055",
+    appId: "1:521340571055:web:893110ac7959a41155335a",
+    measurementId: "G-61J23V3VSX"
+  };
+
+  // Initialize Firebase
+var app = firebase.initializeApp(firebaseConfig);
+var db = firebase.database();
+
+console.log(app);
+
+
+
 var questions  = [
   {
     question: "Which of the following is used to define a block of code in JavaScript?",
@@ -113,12 +131,24 @@ function nextQuestion() {
       var userSelectedValue = allInputs[i].value;
 
       var selectedOption = questions[index - 1]["option" + userSelectedValue];
+     
+      
 
       var correctAnswer = questions[index - 1]["corrAnswer"];
 
+    //   userResponses.push({
+    //   question: questions[index - 1].question,
+    //   selectedAnswer: selectedOption,
+    //   correctAnswer: correctAnswer,
+    //   isCorrect: selectedOption === correctAnswer
+    // });
+
+      
+
       if (correctAnswer === selectedOption) {
         score++;
-        // alert("correct answer")
+        // console.log("correct answer");
+        
       }
       // console.log(selectedOption);
     }
@@ -128,19 +158,79 @@ function nextQuestion() {
 
   }
 
-  if (index > questions.length - 1) {
-    Swal.fire({
-      title: "Good job!",
-      text: ((score / questions.length) * 100).toFixed(3),
-      icon: "success",
-    });
+if (index > questions.length - 1) {
+  var percentage = ((score / questions.length) * 100).toFixed(2);
+
+  var grade = "";
+  if (percentage >= 90 && percentage <= 100) {
+    grade = "Excellent ";
+  } else if (percentage >= 80) {
+    grade = " vary Good ";
+  } else if (percentage >= 70) {
+    grade = "Good ";
+  } else if (percentage >= 60) {
+    grade = "Fair ";
   } else {
+    grade = "Try Again ";
+  }
+
+  Swal.fire({
+    title: "Quiz Finished!",
+    html: `
+      <b>Result:</b> ${percentage}%<br>
+      <b>Grade:</b> ${grade}
+    `,
+    icon: "success",
+    confirmButtonText: "Restart Quiz"
+
+  }).then(() => {
+    
+    resetQuiz();
+  });
+}
+
+   else {
     quesElement.innerText = "Q"+ [index +1] + ": "+questions[index].question;
     option1.innerText = questions[index].option1;
     option2.innerText = questions[index].option2;
     option3.innerText = questions[index].option3;
     index++;
+
+    
   }
+
+
+   var obj ={
+    question:questions[index -2].question,
+    selectedOption:selectedOption,
+    correctAnswer:correctAnswer,
+    score:score,
+   }
+   console.log(obj);
+
+   firebase.database().ref("userResponse").push(obj)
+   .then(function(response){
+    console.log(response);
+   })
+
+   .catch(function(error){
+    console.log(error);
+    
+   })
+   
+   
+}
+function resetQuiz() {
+  index = 0;
+  score = 0;
+  userResponses = [];
+  min = 1;
+  sec = 59;
+
+  nextBtn.disabled = true; 
+  nextQuestion();           
+
+  // console.log("Quiz restarted!");
 }
 nextQuestion();
 
