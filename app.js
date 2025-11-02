@@ -136,21 +136,14 @@ function nextQuestion() {
 
       var correctAnswer = questions[index - 1]["corrAnswer"];
 
-    //   userResponses.push({
-    //   question: questions[index - 1].question,
-    //   selectedAnswer: selectedOption,
-    //   correctAnswer: correctAnswer,
-    //   isCorrect: selectedOption === correctAnswer
-    // });
+   
 
       
 
       if (correctAnswer === selectedOption) {
         score++;
-        // console.log("correct answer");
         
       }
-      // console.log(selectedOption);
     }
     nextBtn.disabled = true;
      min = 1;
@@ -230,7 +223,6 @@ function resetQuiz() {
   nextBtn.disabled = true; 
   nextQuestion();           
 
-  // console.log("Quiz restarted!");
 }
 nextQuestion();
 
