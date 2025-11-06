@@ -120,7 +120,7 @@ function timer() {
 }
 
 
-setInterval(timer, 100);
+setInterval(timer, 1000);
 
 function nextQuestion() {
   var allInputs = document.getElementsByTagName("input");
